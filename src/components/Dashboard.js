@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Card from './Card';
 
 const Dashboard = () => {
 
@@ -9,7 +8,6 @@ const Dashboard = () => {
     const [desc, setDesc] = useState('')
     const [changeBtn, setChangeBtn] = useState(true)
     const [indexing, setIndexing] = useState("")
-    console.log(list)
 
     // function for addItem.
     const addItem = () => {
@@ -29,7 +27,6 @@ const Dashboard = () => {
         const copyList = [...list]
         copyList.splice(index, 1)
         setList(copyList)
-        console.log('deleteItem function call')
     };
 
     // function for editItem.
@@ -39,8 +36,6 @@ const Dashboard = () => {
         setTitle(edit)
         setIndexing(index)
         setChangeBtn(false)
-        console.log('index --->', index)
-        console.log('editItem function call')
     };
 
     // function for updateItem.
@@ -49,11 +44,8 @@ const Dashboard = () => {
         copyList[indexing] = title
         setList(copyList)
         setChangeBtn(true)
-        // remove the value from input.
         setTitle('');
         setDesc('');
-        console.log('copyList --->', copyList)
-        console.log('updateItem function call')
     };
 
     return (
@@ -80,13 +72,17 @@ const Dashboard = () => {
                         <>
                             {list.map((item, index) => {
                                 return (
-                                    <Card
-                                        key={index}
-                                        title={item.title}
-                                        desc={item.desc}
-                                        deleteItem={() => { deleteItem(index) }}
-                                        editItem={() => { editItem(index) }}
-                                    />
+                                    <div className="lg:w-1/3 sm:w-1/2 p-4">
+                                        <div className="flex relative">
+                                            <div className="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900">
+                                                <h2 className="tracking-widest text-sm title-font font-medium text-blue-400 mb-1">THE SUBTITLE</h2>
+                                                <h1 className="title-font text-lg font-medium text-white mb-3">{item.title}</h1>
+                                                <p className="leading-relaxed">{item.desc}</p>
+                                                <button className='text-white' onClick={() => deleteItem(index)}>Delete</button>
+                                                <button className='text-white' onClick={() => editItem(index)}>Edit</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 )
                             })}
                         </>
